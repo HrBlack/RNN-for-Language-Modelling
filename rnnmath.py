@@ -31,7 +31,6 @@ def adjust_loss(loss, fracloss, q, mode='basic'):
 		return loss + fracloss*np.log(fracloss) - fracloss*np.log(q)
 
 
-
 class MultinomialSampler(object):
     """
     Fast (O(log n)) sampling from a discrete probability
