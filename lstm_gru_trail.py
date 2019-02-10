@@ -29,7 +29,7 @@ from sys import stdout
 torch.manual_seed(1)
 
 data_folder = '/afs/inf.ed.ac.uk/user/s15/s1583620/nlu-coursework/data'
-
+ 
 train_size = 25000
 dev_size = 1000
 vocab_size = 2000
