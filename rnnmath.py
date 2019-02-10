@@ -61,7 +61,7 @@ class MultinomialSampler(object):
         p[0] = self._cdf[0]
         p[1:] = (self._cdf[1:] - self._cdf[:-1])
         return p
-
+ 
 def multinomial_sample(p):
     """
     Wrapper to generate a single sample,
