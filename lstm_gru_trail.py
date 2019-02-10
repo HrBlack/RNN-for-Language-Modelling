@@ -216,7 +216,6 @@ def data_to_tensor(seq, batch_size=1):
     tensor = torch.LongTensor(seq)
     return autograd.Variable(tensor)
 
-
 # Train and report the results from final loss of the models.
 data_folder = sys.argv[1]
 train_size = 25000
