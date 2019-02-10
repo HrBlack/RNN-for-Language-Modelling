@@ -19,20 +19,21 @@ vocab.wiki.txt|9954 words
 ## Language Modelling
 ### RNN
 After tuning hyperparameters on the 2000 sentences in [wiki-train.txt](https://github.com/HrBlack/RNN-for-Language-Modelling/blob/master/data/wiki-train.txt), the mean loss on [wiki-dev.txt](https://github.com/HrBlack/RNN-for-Language-Modelling/blob/master/data/wiki-dev.txt) are listed as below:
-Lr   |Hidden | Lookback |Loss |Lr  |Hidden |Lookback |Loss
-----|-------|----------|-----|----|-------|---------|----
-0.05 | 25    | 0 |5.1366 |   0.1   |25 |0  |4.9994 
-0.05 | 25    | 2 |5.1139 |   0.1   |25 |2  |4.9858 
-0.05 | 25    | 5 |5.1216 |   0.1   |25 |5  |5.0011 
-0.05 | 50    | 0 |5.0832 |   0.1   |50 |0  |4.9692 
-0.05 | 50    | 2 |5.0677 |   0.1   |50 |2  |4.9595 
-0.05 | 50    | 5 |5.0839 |   0.1   |50 |5  |4.9692 
-0.5 | 25    | 0 |4.8626 |   1   |25 |0  |4.9301 
-0.5 | 25    | 2 |4.8597 |   1   |25 |2  |4.8710  
-0.5 | 25    | 5 |4.8576 |   1   |25 |5  |4.8548  
-0.5 | 50    | 0 |4.8551 |   1   |50 |0  |4.9617  
-0.5 | 50    | 2 |4.8537 |   1   |50 |2  |4.8791 
-0.5 | 50    | 5 |4.8428 |   **1**   |**50 |5  |4.8366** 
+
+|Lr   |Hidden | Lookback |Loss |Lr  |Hidden |Lookback |Loss|
+|----|-------|----------|-----|----|-------|---------|----|
+|0.05 | 25    | 0 |5.1366 |   0.1   |25 |0  |4.9994 |
+|0.05 | 25    | 2 |5.1139 |   0.1   |25 |2  |4.9858 |
+|0.05 | 25    | 5 |5.1216 |   0.1   |25 |5  |5.0011 |
+|0.05 | 50    | 0 |5.0832 |   0.1   |50 |0  |4.9692 |
+|0.05 | 50    | 2 |5.0677 |   0.1   |50 |2  |4.9595 |
+|0.05 | 50    | 5 |5.0839 |   0.1   |50 |5  |4.9692 |
+|0.5 | 25    | 0 |4.8626 |   1   |25 |0  |4.9301 |
+|0.5 | 25    | 2 |4.8597 |   1   |25 |2  |4.8710  |
+|0.5 | 25    | 5 |4.8576 |   1   |25 |5  |4.8548  |
+|0.5 | 50    | 0 |4.8551 |   1   |50 |0  |4.9617  |
+|0.5 | 50    | 2 |4.8537 |   1   |50 |2  |4.8791 |
+|0.5 | 50    | 5 |4.8428 |   **1**   |**50 |5  |4.8366**| 
 
 * From the results we can see that models with 50 hidden units always perform better than those with 25 hidden units, because the larger hidden layer can enable the network to fit more complex functions.
 * When learning rate is not too small, models with larger look-back step always performbetter, because this will enable the RNN to encode longer history of an input sequence.
@@ -40,7 +41,8 @@ Lr   |Hidden | Lookback |Loss |Lr  |Hidden |Lookback |Loss
 \
 Then I train the model with the best hyper-parametercombinations (i.e., learning rate=1, hidden units=50, look back step=5, vocabulary size=2000, annealing=20), using the whole training set with 50000 sentences. The model gets the best mean loss equals 4.3126 on dev set (in the 18th epoch), and 4.4027 on test set. This is reasonable because the model is tuned on dev set, and the distribution of data in test set may be slightly different with that in the dev set. The adjusted and unadjusted perplexity of the model is 109.9101 and 157.9570 respectively. I also find the loss trained in the full training set is much lower than that trained using partial data, and it is because when training with the full set, the parameters will have more updates in each epoch, and the model can learn more information.
 ### LSTM & GRU
-![comparison](https://github.com/HrBlack/RNN-for-Language-Modelling/blob/master/source/rnn_lstm_gru.pdf)
+<!-- ![alt text](https://github.com/HrBlack/RNN-for-Language-Modelling/blob/master/source/rnn_lstm_gru.pdf) -->
+knitr::include_graphics('https://github.com/HrBlack/RNN-for-Language-Modelling/blob/master/source/rnn_lstm_gru.pdf')  
 It can be from the picture that observed that LSTM and GRU outperform vanilla RNN in terms of both training loss and dev loss, which matches my expectation well. I also find that GRU converges much faster than LSTM, that is because there are less parameters in GRU model.
 
 ## Subject-verb Agreement
