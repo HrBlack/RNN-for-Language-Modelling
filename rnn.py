@@ -12,7 +12,7 @@ class RNN(object):
 	'''
 	This class implements Recurrent Neural Networks.
 	
-	You should implement code in the following functions:
+	The main functions in this class are as below:
 		predict				->	predict an output sequence for a given input sequence
 		acc_deltas			->	accumulate update weights for the RNNs weight matrices, standard Back Propagation
 		acc_deltas_bptt		->	accumulate update weights for the RNNs weight matrices, using Back Propagation Through Time
@@ -21,16 +21,12 @@ class RNN(object):
 		compute_loss 		->	compute the (cross entropy) loss between the desired output and predicted output for a given input sequence
 		compute_mean_loss	->	compute the average loss over all sequences in a corpus
 		generate_sequence	->	use the RNN to generate a new (unseen) sequnce
-	
-	Do NOT modify any other methods!
-	Do NOT change any method signatures!
+
 	'''
 	
 	def __init__(self, vocab_size, hidden_dims, out_vocab_size):
 		'''
 		initialize the RNN with random weight matrices.
-		
-		DO NOT CHANGE THIS
 		
 		vocab_size		size of vocabulary that is being used
 		hidden_dims		number of hidden units
@@ -54,8 +50,6 @@ class RNN(object):
 	def apply_deltas(self, learning_rate):
 		'''
 		update the RNN's weight matrices with corrections accumulated over some training instances
-		
-		DO NOT CHANGE THIS
 		
 		learning_rate	scaling factor for update weights
 		'''
@@ -101,7 +95,7 @@ class RNN(object):
 		accumulate updates for V, W, U
 		standard back propagation
 		
-		this should not update V, W, U directly. instead, use deltaV, deltaW, deltaU to accumulate updates over time
+		here I won't update V, W, U directly. instead, use deltaV, deltaW, deltaU to accumulate updates over time
 		
 		x	list of words, as indices, e.g.: [0, 4, 2]
 		d	list of words, as indices, e.g.: [4, 2, 3]
@@ -130,7 +124,7 @@ class RNN(object):
 		accumulate updates for V, W, U
 		standard back propagation
 		
-		this should not update V, W, U directly. instead, use deltaV, deltaW, deltaU to accumulate updates over time
+		again, not update V, W, U directly. instead, use deltaV, deltaW, deltaU to accumulate updates over time
 		for number prediction task, we do binary prediction, 0 or 1
 
 		x	list of words, as indices, e.g.: [0, 4, 2]
@@ -160,8 +154,7 @@ class RNN(object):
 		accumulate updates for V, W, U
 		back propagation through time (BPTT)
 		
-		this should not update V, W, U directly. instead, use deltaV, deltaW, deltaU to accumulate updates over time
-		
+
 		x		list of words, as indices, e.g.: [0, 4, 2]
 		d		list of words, as indices, e.g.: [4, 2, 3]
 		y		predicted output layer for x; list of probability vectors, e.g., [[0.3, 0.1, 0.1, 0.5], [0.2, 0.7, 0.05, 0.05] [...]]
@@ -187,24 +180,11 @@ class RNN(object):
 				delta_in = np.dot(self.U.T, delta_in) * ((1 - s[t-tao-1][:, None]) * s[t-tao-1][:, None])
 
 
-		# for t in reversed(range(len(x))):
-		# 	for tao in range(2, steps+1):
-		# 		# d_vector = make_onehot(d[tao], self.vocab_size)
-		# 		# delta_out = (d_vector - y[tao]).T
-		# 		# delta_in = self.W.T.dot(delta_out) * sigmoid_grad.T
-		# 		x_vector = make_onehot(x[tao], self.vocab_size)
-		# 		delta_in = np.dot(self.U.T, self.delta_in[t-tao+1]) * sigmoid_grad
-		# 		self.deltaV += delta_in.dot(x_vector[None, :])
-		# 		self.deltaU += delta_in.dot(s[t-tao-1][None, :])
-
-
 	def acc_deltas_bptt_np(self, x, d, y, s, steps):
 		'''
 		accumulate updates for V, W, U
 		back propagation through time (BPTT)
-		
-		this should not update V, W, U directly. instead, use deltaV, deltaW, deltaU to accumulate updates over time
-		for number prediction task, we do binary prediction, 0 or 1
+
 
 		x	list of words, as indices, e.g.: [0, 4, 2]
 		d	array with one element, as indices, e.g.: [0] or [1]
@@ -339,11 +319,10 @@ class RNN(object):
 		return mean_loss
 	
 		
-	def train(self, X, D, X_dev, D_dev,X_test, D_test,epochs=20, learning_rate=0.5, anneal=20, back_steps=0, batch_size=100, min_change=0.0001, log=True):
+	def train(self, X, D, X_dev, D_dev, epochs=20, learning_rate=0.5, anneal=20, back_steps=0, batch_size=100, min_change=0.0001, log=True):
 		'''
 		train the RNN on some training set X, D while optimizing the loss on a dev set X_dev, D_dev
-		
-		DO NOT CHANGE THIS
+
 		
 		training stops after the first of the following is true:
 			* number of epochs reached
@@ -493,8 +472,6 @@ class RNN(object):
 	def train_np(self, X, D, X_dev, D_dev, X_test, D_test, epochs=20, learning_rate=0.5, anneal=20, back_steps=0, batch_size=100, min_change=0.0001, log=True):
 		'''
 		train the RNN on some training set X, D while optimizing the loss on a dev set X_dev, D_dev
-
-		DO NOT CHANGE THIS
 		
 		training stops after the first of the following is true:
 			* number of epochs reached
@@ -642,21 +619,19 @@ if __name__ == "__main__":
 
 	mode = sys.argv[1].lower()
 	data_folder = sys.argv[2]
-	np.random.seed(2018)
+	hdim = int(sys.argv[3])
+	lookback = int(sys.argv[4])
+	lr = float(sys.argv[5])
+	np.random.seed(2019)
 	
 	if mode == "train-lm":
 		'''
 		code for training language model.
-		change this to different values, or use it to get you started with your own testing class
 		'''
-		# train_size = 1000
+
 		train_size = 25000
 		dev_size = 1000
 		vocab_size = 2000
-		
-		# hdim = int(sys.argv[3])
-		# lookback = int(sys.argv[4])
-		# lr = float(sys.argv[5])
 
 		# get the data set vocabulary
 		vocab = pd.read_table(data_folder + "/vocab.wiki.txt", header=None, sep="\s+", index_col=0, names=['count', 'freq'], )
@@ -689,11 +664,8 @@ if __name__ == "__main__":
 		# q = best unigram frequency from omitted vocab
 		# this is the best expected loss out of that set
 		q = vocab.freq[vocab_size] / sum(vocab.freq[vocab_size:])
-		# loss_sum = sum([len(d) for d in D_dev])
-		# loss_sum_test = sum([len(d) for d in D_test])
-		# print(loss_sum, loss_sum_test)
 
-	# iterate all hyperparameters, write in to files
+	# iterate all the combinations of hyperparameters, then write their results in file.
 		# learning_rate = [1, 0.5, 0.1, 0.05]
 		# hidden_unit = [25, 50]
 		# steps = [0, 2, 5]
@@ -703,24 +675,24 @@ if __name__ == "__main__":
 		# 			model = RNN(vocab_size, j, vocab_size)
 		# 			best_loss = model.train(X_train, D_train, X_dev, D_dev, epochs=20, anneal=20, learning_rate=i, back_steps=k)
 
-		# model = RNN(vocab_size, 50, vocab_size)
-		# best_loss, loss = model.train(X_train, D_train, X_dev, D_dev, X_test, D_test, learning_rate=1, back_steps=5)
-		loss = 4.402688
+		model = RNN(vocab_size, hdim, vocab_size)
+		best_loss, loss = model.train(X_train, D_train, X_dev, D_dev, X_test, D_test, learning_rate=lr, back_steps=lookback)
+
 		run_loss = adjust_loss(loss, fraction_lost, q, mode='basic')
 		adjusted_loss = adjust_loss(loss, fraction_lost, q, mode='adjusted')
 		print(np.exp(run_loss), np.exp(adjusted_loss))
-		# with open('/afs/inf.ed.ac.uk/user/s18/s1853165/nlu-coursework/code/lr={}hidden={}step={}.txt'.format(
-		# 		1, 50, 5), 'a') as fr:
-		# 	fr.write('\nmean_loss of test set: {:.4f}' .format(loss))
-		# 	fr.write("\nUnadjusted: %.03f" % np.exp(run_loss))
-		# 	fr.write("\nAdjusted for missing vocab: %.03f" % np.exp(adjusted_loss))
-		# fr.close()
+
+		with open('/afs/inf.ed.ac.uk/user/s18/s1853165/nlu-coursework/code/lr={}hidden={}step={}.txt'.format(
+				lr, hdim, lookback), 'a') as fr:
+			fr.write('\nmean_loss of test set: {:.4f}' .format(loss))
+			fr.write("\nUnadjusted: %.03f" % np.exp(run_loss))
+			fr.write("\nAdjusted for missing vocab: %.03f" % np.exp(adjusted_loss))
+		fr.close()
 
 
 	if mode == "train-np":
 		'''
 		starter code for parameter estimation.
-		change this to different values, or use it to get you started with your own testing class
 		'''
 		train_size = 25000
 		dev_size = 1000
@@ -755,27 +727,14 @@ if __name__ == "__main__":
 		S_test = docs_to_indices(sents, word_to_num, 0, 0)
 		X_test, D_test = seqs_to_npXY(S_test)
 
-		# learning_rate = [1, 0.5, 0.1, 0.05]
-		# hidden_unit = [25, 50]
-		# steps = [0, 2, 5]
-		# with open('./data_3b/Q3b_anneal20.txt', 'w') as fr:
-		# 	for i in learning_rate:
-		# 		for j in hidden_unit:
-		# 			for k in steps:
-		model = RNN(vocab_size, 25, vocab_size)
-		loss, acc = model.train_np(X_train, Y_train, X_dev, D_dev, X_test, D_test, epochs=20, back_steps=5, learning_rate=1)
-		# fr.write('lr={}; hidden={}; steps={}\t' .format(i, j, k))
-		# fr.write('best_loss:{}; best_epoch:{}; best_acc:{}\n' .format(best_loss, best_epoch, best_acc))
-		# fr.close()
-		print(loss, acc)
-		acc = 0.
+		model = RNN(vocab_size, hdim, vocab_size)
+		loss, acc = model.train_np(X_train, Y_train, X_dev, D_dev, epochs=20, back_steps=lookback, learning_rate=lr)
 		
 		print("Accuracy: %.03f" % acc)
 
 	
 	if mode == "predict-lm":
 		
-		# data_folder = sys.argv[2]
 		rnn_folder = '/afs/inf.ed.ac.uk/user/s18/s1853165/nlu-coursework'
 
 		# get saved RNN matrices and setup RNN
