@@ -1,4 +1,4 @@
-to #!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import torch
@@ -275,18 +275,6 @@ plt.grid(True)
 
 fig1.tight_layout()
 fig1.savefig('rnn_lstm_gru.pdf')
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
