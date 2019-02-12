@@ -33,7 +33,7 @@ After tuning hyperparameters on the 2000 sentences in [wiki-train.txt](https://g
 |0.5 | 25    | 5 |4.8576 |   1   |25 |5  |4.8548  |
 |0.5 | 50    | 0 |4.8551 |   1   |50 |0  |4.9617  |
 |0.5 | 50    | 2 |4.8537 |   1   |50 |2  |4.8791 |
-|0.5 | 50    | 5 |4.8428 |   **1  |50 |5  |4.8366**| 
+|0.5 | 50    | 5 |4.8428 |   **1**  |**50** |**5**  |**4.8366**| 
 
 * From the results we can see that models with 50 hidden units always perform better than those with 25 hidden units, because the larger hidden layer can enable the network to fit more complex functions.
 * When learning rate is not too small, models with larger look-back step always performbetter, because this will enable the RNN to encode longer history of an input sequence.
