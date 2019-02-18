@@ -16,7 +16,7 @@ The data I used here is a subset of the parsed Wikipedia corpus.
 |wiki-train.txt|50000 sentences|
 |wiki-dev.txt|1000 sentences|
 |wiki-test.txt|4000 sentences|
-|vocab.wiki.txt|9954 word|
+|vocab.wiki.txt|9954 words|
 
 ## Language Modelling
 ### RNN
