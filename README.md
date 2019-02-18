@@ -10,12 +10,12 @@ See [rnn.py](https://github.com/HrBlack/RNN-for-Language-Modelling/blob/master/r
 ## Data
 
 The data I used here is a subset of the parsed Wikipedia corpus.
-file| size
------|-----
-wiki-train.txt|50000 sentences
-wiki-dev.txt|1000 sentences
-wiki-test.txt|4000 sentences
-vocab.wiki.txt|9954 words
+|file| size|
+|-----|-----|
+|wiki-train.txt|50000 sentences|
+|wiki-dev.txt|1000 sentences|
+|wiki-test.txt|4000 sentences|
+|vocab.wiki.txt|9954 word|
 
 ## Language Modelling
 ### RNN
